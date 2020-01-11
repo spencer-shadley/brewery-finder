@@ -6,7 +6,12 @@
   font-size: 15px;
 }
 
+<<<<<<< HEAD
 .brewery-search,
 .location {
   padding: 20px;
+=======
+#movie {
+  font-size: 15px;
+>>>>>>> 0a52d289826b8c7306619990f4fd2931f68953d6
 }
