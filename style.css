@@ -1,7 +1,12 @@
 .header {
-    padding: 10px;
-    text-align: center;
-    background: black;
-    color: white;
-    font-size: 15px;
+  padding: 10px;
+  text-align: center;
+  background: black;
+  color: white;
+  font-size: 15px;
+}
+
+.brewery-search,
+.location {
+  padding: 20px;
 }
