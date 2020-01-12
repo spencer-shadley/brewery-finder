@@ -1,23 +1,23 @@
 // Open Brewery API const
 const openBreweryURL = 'https://api.openbrewerydb.org/breweries';
 
-// Google Distance Matrix API const
+// Google API const
 const googleDistanceMatrix = 'https://maps.googleapis.com/maps/api/distancematrix/json?';
 const googleGeocoding = 'https://maps.googleapis.com/maps/api/geocode/json?';
 const googleKey = 'AIzaSyCOVytxWpWIyqONX13vwZq83on9U8KmDW8';
+
+// CORS 
 const corsAnywhere = 'https://cors-anywhere.herokuapp.com/';
 
 // html elements
 let locateMeButton = $('#locate-me');
 
 // Global variables
-let currentCity = 'Seattle';
-let destinations = 'San Jose';
+let currentCity = 'Portland';
 let currentCoord = '47.85839,-122.27090049999998';
-let targetCoord = '47.82048455,-122.287641610199';
 
 
-// locateMe();
+// callBreweryByCity(currentCity);
 
 // will need to get user location at beginning -> update local variable current coord
 
@@ -46,7 +46,7 @@ function locateMe() {
     };
 
     function error() {
-        alert('Can\'t get your current location...');
+        alert('Can not get your current location...');
     };
 };
 
@@ -66,7 +66,7 @@ function callGoogleGeocodingByCoord(coordinate) {
         },
         crossDomain: true,
         success: function () {
-            console.log("success");
+            console.log("google geocoding success");
         }
     }).then(function (response) {
         currentCity = response.results[0].address_components[2].long_name;
@@ -76,7 +76,6 @@ function callGoogleGeocodingByCoord(coordinate) {
 
 // a function that searches list of breweries by city name, then 
 function callBreweryByCity(city) {
-    console.log(city)
     $.ajax({
         url: openBreweryURL + '?by_city=' + city
     }).then(function (response) {
@@ -87,12 +86,13 @@ function callBreweryByCity(city) {
         console.log('Brewery Phone Number: ' + response[0].phone);
         console.log('Brewery Lon: ' + response[0].longitude);
         console.log('Brewery Lat: ' + response[0].latitude);
+        callGoogleDistanceByCoord();
     });
 };
 
 // google Distance call by takign current coordinate and checks against each brewery address in the breweryObj
 function callGoogleDistanceByCoord() {
-    let destinations = '';
+    let destinations;
     for (i in breweryObj) {
         let currentCoord = breweryObj[i].street + ',' + breweryObj[i].city + ',' + breweryObj[i].state;
         destinations += currentCoord + '|'
@@ -112,10 +112,9 @@ function callGoogleDistanceByCoord() {
         },
         crossDomain: true,
         success: function () {
-            console.log("success");
+            console.log("google distance by coord success");
         }
     }).then(function (response) {
-        console.log(response);
         for (i in response.rows[0].elements) {
             let meters = response.rows[0].elements[i].distance.value;
             let miles = meterToMile(meters) + ' miles';
@@ -129,7 +128,7 @@ function callGoogleDistanceByCoord() {
 
 
 
-
+// not being used at this time
 function callGoogleDistanceByCity() {
     $.ajax({
         url: corsAnywhere + googleDistanceMatrix,
@@ -146,32 +145,16 @@ function callGoogleDistanceByCity() {
         },
         crossDomain: true,
         success: function () {
-            console.log("success");
+            console.log("google distance by city success");
         }
     }).then(function (response) {
         console.log(response);
-        console.log(response.rows[0].elements[0].distance.text);
     });
 };
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// function converts meters (int) to miles 
 function meterToMile(meters) {
     let miles = (meters / 1609.34).toFixed(2);
     return miles;
