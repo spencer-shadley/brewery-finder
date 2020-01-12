@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Brewery Finder</title>
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/uikit@3.2.6/dist/css/uikit.min.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.2.6/dist/css/uikit.min.css" />
     <link rel="stylesheet" href="style.css" />
-  </head>
+</head>
 
-  <body>
+<body>
     <!--header-->
     <div class="header">
       <h1 id="header-text">Brewery Finder</h1>
@@ -21,16 +19,13 @@
 
     <!--search field (movie)-->
     <div class="brewery-search">
-      <div>
-        <form class="uk-search uk-search-default">
-          <a href="" class="uk-search-icon-flip" uk-search-icon></a>
-          <input
-            class="uk-search-input"
-            type="search"
-            placeholder="Brewery Name"
-          />
-        </form>
-      </div>
+        <div>
+            <form class="uk-search uk-search-default">
+                <a href="" class="uk-search-icon-flip" uk-search-icon></a>
+                <input class="uk-search-input" type="search" placeholder="Brewery Name" />
+            </form>
+            <button class="uk-button uk-button-default" id="locate-me">Locate Me</button>
+        </div>
     </div>
     <!--search field (location)-->
     <div class="location">
@@ -63,8 +58,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <!-- Main js -->
+    <script src="./test-objects.js"></script>
     <script src="./javascript.js"></script>
-  </body>
+</body>
+
 </html>
 
 <!-- test -->
