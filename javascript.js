@@ -31,12 +31,8 @@ let currentCoord = '47.85839,-122.27090049999998';
 
 // html element event listeners
 userInput.on('keyup', switchIcon);
-searchButton.on('click', function (event) {
-    event.preventDefault();
-    console.log(event);
-});
-
 userInput.keypress(enterPressed);
+searchButton.on('click', enterPressed);
 
 
 // init
@@ -54,9 +50,9 @@ function switchIcon() {
 
 // a function that checks whether user pressed enter and what to do if occur.
 function enterPressed (event) {
-    if (event.which === 13) {
+    if (event.which === 13 | event.type === 'click') {
         event.preventDefault();
-        console.log('enter pressed');
+        console.log('enter pressed or button clicked');
         if (userInput.val().trim()) {
             console.log(userInput.val());
         } else {
