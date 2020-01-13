@@ -56,7 +56,7 @@ function enterPressed(event) {
         console.log('enter pressed or button clicked');
         if (userInput.val().trim()) {
             console.log(userInput.val().trim());
-            // callBreweryByCity(userInput.val().trim());
+            // makeBreweryCall(userInput.val().trim());
             parseAddress(userInput.val().trim());
         } else {
             locateMe();
@@ -83,6 +83,7 @@ function parseAddress(address) {
     console.log(city);
     console.log(state);
     console.log(postal);
+    makeBreweryCall({city: city, postal: postal});
 };
 
 // a function that checks user's current location and calls callGoogleGeoCoord()
@@ -127,17 +128,18 @@ function callGoogleGeocodingByCoord(coordinate) {
         }
     }).then(function (response) {
         searchCity = response.results[0].address_components[2].long_name;
-        callBreweryByCity(searchCity);
+        makeBreweryCall(searchCity);
     });
 };
 
 // a function that searches list of breweries by city name, then 
-function callBreweryByCity(city) {
+function makeBreweryCall({city, state, postal}) {
     $.ajax({
         url: openBreweryURL,
         data: {
             by_city: city,
             by_type: '',
+            by_postal: postal,
             per_page: 20
         }
     }).then(function (response) {
