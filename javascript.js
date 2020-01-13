@@ -1,5 +1,5 @@
 // Open Brewery API const
-const openBreweryURL = 'https://api.openbrewerydb.org/breweries';
+const openBreweryURL = 'https://api.openbrewerydb.org/breweries?';
 
 // Google API const
 const googleDistanceMatrix = 'https://maps.googleapis.com/maps/api/distancematrix/json?';
@@ -19,8 +19,6 @@ let currentCity = 'Portland';
 let currentCoord = '47.85839,-122.27090049999998';
 
 
-// callBreweryByCity(currentCity);
-
 // will need to get user location at beginning -> update local variable current coord
 
 // user can search city name -> calls brewery api by city name -> updates local brewery obj -> make one google distance call with all the addresses -> update local brewery obj with distance data -> display result to user
@@ -36,6 +34,7 @@ searchButton.on('click', enterPressed);
 
 
 // init
+// locateMe();
 updateBreweryList();
 
 // a function that changes search-button icon to 'position' when there's nothing in input
@@ -49,12 +48,13 @@ function switchIcon() {
 };
 
 // a function that checks whether user pressed enter and what to do if occur.
-function enterPressed (event) {
+function enterPressed(event) {
     if (event.which === 13 | event.type === 'click') {
         event.preventDefault();
         console.log('enter pressed or button clicked');
         if (userInput.val().trim()) {
             console.log(userInput.val());
+            callBreweryByCity(userInput.val().trim());
         } else {
             locateMe();
         };
@@ -75,7 +75,7 @@ function locateMe() {
         let latitude = position.coords.latitude;
         let longitude = position.coords.longitude;
         currentCoord = latitude + ',' + longitude;
-        console.log(currentCoord);
+        console.log('Your coordinate is: ' + currentCoord);
         callGoogleGeocodingByCoord(currentCoord);
     };
 
@@ -111,15 +111,14 @@ function callGoogleGeocodingByCoord(coordinate) {
 // a function that searches list of breweries by city name, then 
 function callBreweryByCity(city) {
     $.ajax({
-        url: openBreweryURL + '?by_city=' + city
+        url: openBreweryURL,
+        data: {
+            by_city: city,
+            by_type: 'micro',
+            per_page: 20
+        }
     }).then(function (response) {
         breweryObj = response;
-        console.log(response);
-        console.log('Brewery Name: ' + response[0].name);
-        console.log('Brewery Address: ' + response[0].street + '\n' + response[0].city + ', ' + response[0].state + ' ' + response[0].postal_code);
-        console.log('Brewery Phone Number: ' + response[0].phone);
-        console.log('Brewery Lon: ' + response[0].longitude);
-        console.log('Brewery Lat: ' + response[0].latitude);
         callGoogleDistanceByCoord();
     });
 };
@@ -149,9 +148,10 @@ function callGoogleDistanceByCoord() {
             console.log("google distance by coord success");
         }
     }).then(function (response) {
+        console.log(response);
         for (i in response.rows[0].elements) {
-            let meters = response.rows[0].elements[i].distance.value;
-            let miles = meterToMile(meters) + ' miles';
+            let meters = response.rows[0].elements[i].distance === undefined ? null : response.rows[0].elements[i].distance.value;
+            let miles = meterToMile(meters);
             console.log(miles);
             breweryObj[i].distance = miles;
         };
@@ -170,7 +170,8 @@ function updateBreweryList() {
         let name = $('<p class="uk-text-bold">').text(breweryObj[i].name);
         let address = '<p>' + breweryObj[i].street + '<br>' + breweryObj[i].city + ', ' + breweryObj[i].state + ' '
             + breweryObj[i].postal_code + '</p>';
-        breweryList.append(child.append(card.append([heading, name, address])));
+        let distance = '<p>Distance: ' + breweryObj[i].distance + '</p>'
+        breweryList.append(child.append(card.append([heading, name, address, distance])));
     };
 };
 
@@ -204,6 +205,9 @@ function callGoogleDistanceByCity() {
 
 // function converts meters (int) to miles 
 function meterToMile(meters) {
-    let miles = (meters / 1609.34).toFixed(2);
-    return miles;
+    if (meters === null) {
+        return 'n/a'
+    } else {
+        return (meters / 1609.34).toFixed(2) + ' miles';
+    };
 };
