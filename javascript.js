@@ -29,6 +29,9 @@ let currentCoord = '47.85839,-122.27090049999998';
 
 locateMeButton.on('click', locateMe);
 
+// init
+updateBreweryList();
+
 // a function that checks user's current location and calls callGoogleGeoCoord()
 function locateMe() {
     if (!navigator.geolocation) {
@@ -127,6 +130,7 @@ function callGoogleDistanceByCoord() {
     });
 };
 
+// a function that parses data from breweryObj and updates brewery-list div
 function updateBreweryList() {
     breweryList.empty();
     for (i in breweryObj) {
