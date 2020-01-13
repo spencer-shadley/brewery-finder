@@ -10,7 +10,8 @@ const googleKey = 'AIzaSyCOVytxWpWIyqONX13vwZq83on9U8KmDW8';
 const corsAnywhere = 'https://cors-anywhere.herokuapp.com/';
 
 // html elements
-let locateMeButton = $('#locate-me');
+let userInput = $('#user-input');
+let searchButton = $('#search-button');
 let breweryList = $('#brewery-list');
 
 // Global variables
@@ -27,10 +28,24 @@ let currentCoord = '47.85839,-122.27090049999998';
 // user can click on locate me button -> browser gets user coord and store it in local var -> make one google distance call with all the addresses -> update local brewery obj with distance data -> 
 
 
-locateMeButton.on('click', locateMe);
+
+// html element event listeners
+userInput.on('keyup', switchIcon);
+
+
+
 
 // init
 updateBreweryList();
+
+// a function that changes search-button icon to 'position' when there's nothing in input
+function switchIcon() {
+    if (userInput.val().trim()) {
+        searchButton.attr('uk-icon', 'search')
+    } else {
+        searchButton.attr('uk-icon', 'location')
+    };
+};
 
 // a function that checks user's current location and calls callGoogleGeoCoord()
 function locateMe() {
