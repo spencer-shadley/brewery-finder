@@ -138,13 +138,10 @@ function updateBreweryList() {
         let card = $('<div class="uk-card uk-card-default uk-card-body">');
         let heading = $('<h4>').text('Brewery #' + (parseInt(i) + 1));
         let name = $('<p class="uk-text-bold">').text(breweryObj[i].name);
-        let address = '<p>' + breweryObj[i].street + '<br>' + breweryObj[i].city + ', ' + breweryObj[i].state + ' ' + breweryObj[i].postal_code + '</p>'
-        card.append(heading);
-        card.append(name);
-        card.append(address);
-        child.append(card);
-        breweryList.append(child);
-    }
+        let address = '<p>' + breweryObj[i].street + '<br>' + breweryObj[i].city + ', ' + breweryObj[i].state + ' '
+            + breweryObj[i].postal_code + '</p>';
+        breweryList.append(child.append(card.append([heading, name, address])));
+    };
 };
 
 

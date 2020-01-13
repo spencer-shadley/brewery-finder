@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Brewery Finder</title>
-
+    <!-- UI Kit CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.2.6/dist/css/uikit.min.css" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
@@ -39,6 +39,17 @@
 
     <!-- brewery list -->
     <div class="uk-container">
+
+        <form>
+            <div class="uk-margin uk-text-center">
+                <div class="uk-inline">
+                    <input class="uk-input uk-form-width-large" id="user-input" type="search" placeholder="where to drink?">
+                    <a class="uk-form-icon uk-form-icon-flip" id="search-icon" href="" uk-icon="icon: search"></a>
+                </div>
+            </div>
+        </form>
+
+
         <div class="uk-grid-medium uk-grid-match uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center" uk-grid
             id="brewery-list">
             <div>
@@ -73,6 +84,7 @@
     <!-- UIKit  -->
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.6/dist/js/uikit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.6/dist/js/uikit-icons.min.js"></script>
+
     <!-- moment javascript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 
