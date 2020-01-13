@@ -15,7 +15,9 @@ let searchButton = $('#search-button');
 let breweryList = $('#brewery-list');
 
 // Global variables
-let currentCity = 'Portland';
+let searchCity;
+let currentState;
+let currentPostal;
 let currentCoord = '47.85839,-122.27090049999998';
 
 
@@ -53,13 +55,34 @@ function enterPressed(event) {
         event.preventDefault();
         console.log('enter pressed or button clicked');
         if (userInput.val().trim()) {
-            console.log(userInput.val());
-            callBreweryByCity(userInput.val().trim());
+            console.log(userInput.val().trim());
+            // callBreweryByCity(userInput.val().trim());
+            parseAddress(userInput.val().trim());
         } else {
             locateMe();
         };
         userInput.val('');
     };
+};
+
+function parseAddress(address) {
+    let comma = address.indexOf(',');
+    // console.log(comma);
+    let city = address.slice(0, comma);
+    let state = '';
+    let postal = '';
+    let after = address.substring(comma + 1).trim();
+    if (after.length === 2 && isNaN(parseInt(after))) {
+        state = after;
+    } else {
+        console.log("State not found")
+        // let space = after.lastIndexOf(' ');
+        // state = after.slice(0, space);
+        // postal = after.substring(space + 1)
+    }
+    console.log(city);
+    console.log(state);
+    console.log(postal);
 };
 
 // a function that checks user's current location and calls callGoogleGeoCoord()
@@ -103,8 +126,8 @@ function callGoogleGeocodingByCoord(coordinate) {
             console.log("google geocoding success");
         }
     }).then(function (response) {
-        currentCity = response.results[0].address_components[2].long_name;
-        callBreweryByCity(currentCity);
+        searchCity = response.results[0].address_components[2].long_name;
+        callBreweryByCity(searchCity);
     });
 };
 
@@ -114,7 +137,7 @@ function callBreweryByCity(city) {
         url: openBreweryURL,
         data: {
             by_city: city,
-            by_type: 'micro',
+            by_type: '',
             per_page: 20
         }
     }).then(function (response) {
@@ -168,10 +191,11 @@ function updateBreweryList() {
         let card = $('<div class="uk-card uk-card-default uk-card-body">');
         let heading = $('<h4>').text('Brewery #' + (parseInt(i) + 1));
         let name = $('<p class="uk-text-bold">').text(breweryObj[i].name);
+        let breweryType = $('<p>').text('Type: ' + breweryObj[i].brewery_type);
         let address = '<p>' + breweryObj[i].street + '<br>' + breweryObj[i].city + ', ' + breweryObj[i].state + ' '
             + breweryObj[i].postal_code + '</p>';
         let distance = '<p>Distance: ' + breweryObj[i].distance + '</p>'
-        breweryList.append(child.append(card.append([heading, name, address, distance])));
+        breweryList.append(child.append(card.append([heading, name, breweryType, address, distance])));
     };
 };
 
