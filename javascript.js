@@ -31,8 +31,12 @@ let currentCoord = '47.85839,-122.27090049999998';
 
 // html element event listeners
 userInput.on('keyup', switchIcon);
+searchButton.on('click', function (event) {
+    event.preventDefault();
+    console.log(event);
+});
 
-
+userInput.keypress(enterPressed);
 
 
 // init
@@ -40,10 +44,25 @@ updateBreweryList();
 
 // a function that changes search-button icon to 'position' when there's nothing in input
 function switchIcon() {
+    event.preventDefault();
     if (userInput.val().trim()) {
         searchButton.attr('uk-icon', 'search')
     } else {
         searchButton.attr('uk-icon', 'location')
+    };
+};
+
+// a function that checks whether user pressed enter and what to do if occur.
+function enterPressed (event) {
+    if (event.which === 13) {
+        event.preventDefault();
+        console.log('enter pressed');
+        if (userInput.val().trim()) {
+            console.log(userInput.val());
+        } else {
+            locateMe();
+        };
+        userInput.val('');
     };
 };
 
