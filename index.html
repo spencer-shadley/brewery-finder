@@ -12,10 +12,12 @@
 </head>
 
 <body>
-    <!--header-->
-    <div class="header">
-        <h1 id="header-text">Brewery Finder</h1>
-    </div>
+    <!--nav bar-->
+    <nav class="uk-navbar-container uk-margin" uk-navbar>
+        <div class="uk-navbar-center">
+            <a class="uk-navbar-item uk-logo" href="#">Brewery Finder</a>
+        </div>
+    </nav>
 
     <!--search field -->
     <div class="brewery-search">
@@ -24,7 +26,6 @@
                 <a href="" class="uk-search-icon-flip" uk-search-icon></a>
                 <input class="uk-search-input" type="search" placeholder="Brewery Name" />
             </form>
-            <button class="uk-button uk-button-default" id="locate-me">Locate Me</button>
         </div>
     </div>
     <!--search field (location)-->
@@ -47,7 +48,7 @@
                         placeholder="where to drink?">
                     <a class="uk-form-icon uk-form-icon-flip" id="search-button" href="" uk-icon="icon: location"></a>
                 </div>
-                <div class="uk-form-label">enter city, state (e.g. "Seattle, WA")</div>
+                <div class="uk-form-label">enter city, state zip code (e.g. "Seattle, WA 98103")</div>
             </form>
         </div>
 
@@ -70,15 +71,6 @@
 
 
 
-
-
-
-    <!--brewery data div-->
-    <div class="" id=""></div>
-    <!--brewery location data div-->
-    <div class="" id=""></div>
-    <!--distance from User-->
-    <div class="" id=""></div>
 
 
     <!-- UIKit  -->
