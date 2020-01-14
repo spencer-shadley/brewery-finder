@@ -53,10 +53,8 @@ function switchIcon() {
 function enterPressed(event) {
     if (event.which === 13 | event.type === 'click') {
         event.preventDefault();
-        console.log('enter pressed or button clicked');
         if (userInput.val().trim()) {
             console.log(userInput.val().trim());
-            // makeBreweryCall(userInput.val().trim());
             parseAddress(userInput.val().trim());
         } else {
             locateMe();
@@ -66,31 +64,40 @@ function enterPressed(event) {
 };
 
 function parseAddress(address) {
+    address = address.toLowerCase();
     let comma = address.indexOf(',');
-    // console.log(comma);
-    let city = address.slice(0, comma);
+    let city = comma === -1 ? '' : address.slice(0, comma);
     let state = '';
     let postal = '';
-    let after = address.substring(comma + 1).trim();
-    if (after.length === 2 && isNaN(parseInt(after))) {
-        state = after;
-    } else {
-        console.log("State not found")
-        // let space = after.lastIndexOf(' ');
-        // state = after.slice(0, space);
-        // postal = after.substring(space + 1)
-    }
-    console.log(city);
-    console.log(state);
-    console.log(postal);
-    makeBreweryCall({city: city, postal: postal});
+    let restArr = address.substring(comma + 1).trim();
+    restArr = restArr.split(' ');
+    for (i in restArr) {
+        if ((restArr[i] === 2) && isNaN(parseInt(restArr[i]))) {
+            state = restArr[i];
+        } else if (isNaN(parseInt(restArr[i]))) {
+            state += restArr[i] + ' ';
+        } else if ((restArr[i].length === 5) && !isNaN(parseInt(restArr[i]))) {
+            postal = restArr[i];
+        };
+    };
+    state = state.trim();
+    if (state.length === 2) {
+        state = stateNames[state] === undefined ? '' : stateNames[state];
+    };
+    makeBreweryCall({ city: city, state: state, postal: postal});
 };
 
 // a function that checks user's current location and calls callGoogleGeoCoord()
 function locateMe() {
     if (!navigator.geolocation) {
+        breweryList.empty();
+        breweryList.append($('<h4>').text('Geolocation is not supported by your browser ...'));
         alert('Geolocation is not supported by your browser ...');
     } else {
+        breweryList.empty();
+        let message = $('<h4>').text('Getting your local breweries...');
+        let timeoutMessage = $('<p>').text('(timeout after 60 seconds)');
+        breweryList.append($('<div>').append([message, timeoutMessage]));
         let options = { timeout: 60000 };
         navigator.geolocation.getCurrentPosition(success, error, options);
     };
@@ -104,7 +111,9 @@ function locateMe() {
     };
 
     function error() {
-        alert('Can not get your current location...');
+        breweryList.empty();
+        let errorMessage = $('<h4>').text('Can not get your current location...');
+        breweryList.append(errorMessage);
     };
 };
 
@@ -128,16 +137,17 @@ function callGoogleGeocodingByCoord(coordinate) {
         }
     }).then(function (response) {
         searchCity = response.results[0].address_components[2].long_name;
-        makeBreweryCall(searchCity);
+        makeBreweryCall({city: searchCity});
     });
 };
 
 // a function that searches list of breweries by city name, then 
-function makeBreweryCall({city, state, postal}) {
+function makeBreweryCall({ city, state, postal } = {}) {
     $.ajax({
         url: openBreweryURL,
         data: {
             by_city: city,
+            by_state: state,
             by_type: '',
             by_postal: postal,
             per_page: 20
@@ -232,7 +242,7 @@ function callGoogleDistanceByCity() {
 // function converts meters (int) to miles 
 function meterToMile(meters) {
     if (meters === null) {
-        return 'n/a'
+        return 'N/A'
     } else {
         return (meters / 1609.34).toFixed(2) + ' miles';
     };
