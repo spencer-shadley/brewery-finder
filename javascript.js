@@ -65,19 +65,25 @@ function enterPressed(event) {
 
 function parseAddress(address) {
     address = address.toLowerCase();
-    let comma = address.indexOf(',');
-    let city = comma === -1 ? '' : address.slice(0, comma);
+    let city = '';
     let state = '';
-    let postal = '';
-    let restArr = address.substring(comma + 1).trim();
-    restArr = restArr.split(' ');
-    for (i in restArr) {
-        if ((restArr[i] === 2) && isNaN(parseInt(restArr[i]))) {
-            state = restArr[i];
-        } else if (isNaN(parseInt(restArr[i]))) {
-            state += restArr[i] + ' ';
-        } else if ((restArr[i].length === 5) && !isNaN(parseInt(restArr[i]))) {
-            postal = restArr[i];
+    let postal;
+    if (!address || typeof address !== 'string') {
+        return false;
+    };
+    if (address.includes(',')) {
+        let comma = address.indexOf(',');
+        city = address.slice(0, comma);
+        address = address.substring(comma + 1).trim();
+    };
+    address = address.split(' ');
+    for (i in address) {
+        if ((address[i] === 2) && isNaN(parseInt(address[i]))) {
+            state = address[i];
+        } else if (isNaN(parseInt(address[i]))) {
+            state += address[i] + ' ';
+        } else if ((address[i].length === 5) && !isNaN(parseInt(address[i]))) {
+            postal = address[i];
         };
     };
     state = state.trim();
@@ -137,7 +143,7 @@ function callGoogleGeocodingByCoord(coordinate) {
         }
     }).then(function (response) {
         searchCity = response.results[0].address_components[2].long_name;
-        makeBreweryCall({city: searchCity});
+        makeBreweryCall({ city: searchCity });
     });
 };
 
