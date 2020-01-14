@@ -15,10 +15,7 @@ let searchButton = $('#search-button');
 let breweryList = $('#brewery-list');
 
 // Global variables
-let searchCity;
-let currentState;
-let currentPostal;
-let currentCoord = '47.85839,-122.27090049999998';
+let currentCoord;
 
 
 // will need to get user location at beginning -> update local variable current coord
@@ -36,8 +33,14 @@ searchButton.on('click', enterPressed);
 
 
 // init
-// locateMe();
-updateBreweryList();
+init();
+
+function init() {
+    locateMe();
+    console.log(currentCoord)
+}
+
+// updateBreweryList();
 
 // a function that changes search-button icon to 'position' when there's nothing in input
 function switchIcon() {
@@ -53,10 +56,8 @@ function switchIcon() {
 function enterPressed(event) {
     if (event.which === 13 | event.type === 'click') {
         event.preventDefault();
-        console.log('enter pressed or button clicked');
         if (userInput.val().trim()) {
             console.log(userInput.val().trim());
-            // makeBreweryCall(userInput.val().trim());
             parseAddress(userInput.val().trim());
         } else {
             locateMe();
@@ -65,32 +66,48 @@ function enterPressed(event) {
     };
 };
 
+// function that parses user input (address format: city, state postal code)
 function parseAddress(address) {
-    let comma = address.indexOf(',');
-    // console.log(comma);
-    let city = address.slice(0, comma);
+    address = address.toLowerCase();
+    let city = '';
     let state = '';
-    let postal = '';
-    let after = address.substring(comma + 1).trim();
-    if (after.length === 2 && isNaN(parseInt(after))) {
-        state = after;
-    } else {
-        console.log("State not found")
-        // let space = after.lastIndexOf(' ');
-        // state = after.slice(0, space);
-        // postal = after.substring(space + 1)
-    }
-    console.log(city);
-    console.log(state);
-    console.log(postal);
-    makeBreweryCall({city: city, postal: postal});
+    let postal;
+    if (!address || typeof address !== 'string') {
+        return false;
+    };
+    if (address.includes(',')) {
+        let comma = address.indexOf(',');
+        city = address.slice(0, comma);
+        address = address.substring(comma + 1).trim();
+    };
+    address = address.split(' ');
+    for (i in address) {
+        if ((address[i] === 2) && isNaN(parseInt(address[i]))) {
+            state = address[i];
+        } else if (isNaN(parseInt(address[i]))) {
+            state += address[i] + ' ';
+        } else if ((address[i].length === 5) && !isNaN(parseInt(address[i]))) {
+            postal = address[i];
+        };
+    };
+    state = state.trim();
+    if (state.length === 2) {
+        state = stateNames[state] === undefined ? '' : stateNames[state];
+    };
+    makeBreweryCall({ city: city, state: state, postal: postal });
 };
 
 // a function that checks user's current location and calls callGoogleGeoCoord()
 function locateMe() {
     if (!navigator.geolocation) {
+        breweryList.empty();
+        breweryList.append($('<h4>').text('Geolocation is not supported by your browser ...'));
         alert('Geolocation is not supported by your browser ...');
     } else {
+        breweryList.empty();
+        let message = $('<h4>').text('Getting your local breweries...');
+        let timeoutMessage = $('<p>').text('(timeout after 60 seconds)');
+        breweryList.append($('<div>').append([message, timeoutMessage]));
         let options = { timeout: 60000 };
         navigator.geolocation.getCurrentPosition(success, error, options);
     };
@@ -104,7 +121,9 @@ function locateMe() {
     };
 
     function error() {
-        alert('Can not get your current location...');
+        breweryList.empty();
+        let errorMessage = $('<h4>').text('Can not get your current location...');
+        breweryList.append(errorMessage);
     };
 };
 
@@ -127,17 +146,18 @@ function callGoogleGeocodingByCoord(coordinate) {
             console.log("google geocoding success");
         }
     }).then(function (response) {
-        searchCity = response.results[0].address_components[2].long_name;
-        makeBreweryCall(searchCity);
+        let city = response.results[0].address_components[2].long_name;
+        makeBreweryCall({ city: city });
     });
 };
 
 // a function that searches list of breweries by city name, then 
-function makeBreweryCall({city, state, postal}) {
+function makeBreweryCall({ city, state, postal } = {}) {
     $.ajax({
         url: openBreweryURL,
         data: {
             by_city: city,
+            by_state: state,
             by_type: '',
             by_postal: postal,
             per_page: 20
@@ -150,10 +170,14 @@ function makeBreweryCall({city, state, postal}) {
 
 // google Distance call by takign current coordinate and checks against each brewery address in the breweryObj
 function callGoogleDistanceByCoord() {
+    if (currentCoord === undefined) {
+        updateBreweryList();
+        return;
+    };
     let destinations;
     for (i in breweryObj) {
-        let currentCoord = breweryObj[i].street + ',' + breweryObj[i].city + ',' + breweryObj[i].state;
-        destinations += currentCoord + '|'
+        let breweryCoord = breweryObj[i].street + ',' + breweryObj[i].city + ',' + breweryObj[i].state;
+        destinations += breweryCoord + '|'
     }
     $.ajax({
         url: corsAnywhere + googleDistanceMatrix,
@@ -196,43 +220,17 @@ function updateBreweryList() {
         let breweryType = $('<p>').text('Type: ' + breweryObj[i].brewery_type);
         let address = '<p>' + breweryObj[i].street + '<br>' + breweryObj[i].city + ', ' + breweryObj[i].state + ' '
             + breweryObj[i].postal_code + '</p>';
-        let distance = '<p>Distance: ' + breweryObj[i].distance + '</p>'
+        let distance = '<p>Distance: '
+            + (breweryObj[i].distance === undefined ? 'unavailable' : breweryObj[i].distance) + '</p>'
         breweryList.append(child.append(card.append([heading, name, breweryType, address, distance])));
     };
 };
 
 
-
-// not being used at this time
-function callGoogleDistanceByCity() {
-    $.ajax({
-        url: corsAnywhere + googleDistanceMatrix,
-        data: {
-            origins: origins,
-            destinations: destinations,
-            key: googleKey
-        },
-        method: 'GET',
-        statusCode: {
-            404: function () {
-                alert('We cannot find that city! (404)')
-            }
-        },
-        crossDomain: true,
-        success: function () {
-            console.log("google distance by city success");
-        }
-    }).then(function (response) {
-        console.log(response);
-    });
-};
-
-
-
 // function converts meters (int) to miles 
 function meterToMile(meters) {
     if (meters === null) {
-        return 'n/a'
+        return 'N/A'
     } else {
         return (meters / 1609.34).toFixed(2) + ' miles';
     };
