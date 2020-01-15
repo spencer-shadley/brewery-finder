@@ -235,3 +235,7 @@ function meterToMile(meters) {
         return (meters / 1609.34).toFixed(2) + ' miles';
     };
 };
+
+
+
+// Richard TEST 
