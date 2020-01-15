@@ -1,3 +1,4 @@
+'use strict'
 // Open Brewery API const
 const openBreweryURL = 'https://api.openbrewerydb.org/breweries?';
 
@@ -81,7 +82,7 @@ function parseAddress(address) {
         address = address.substring(comma + 1).trim();
     };
     address = address.split(' ');
-    for (i in address) {
+    for (var i in address) {
         if ((address[i] === 2) && isNaN(parseInt(address[i]))) {
             state = address[i];
         } else if (isNaN(parseInt(address[i]))) {
@@ -175,7 +176,7 @@ function callGoogleDistanceByCoord() {
         return;
     };
     let destinations;
-    for (i in breweryObj) {
+    for (var i in breweryObj) {
         let breweryCoord = breweryObj[i].street + ',' + breweryObj[i].city + ',' + breweryObj[i].state;
         destinations += breweryCoord + '|'
     }
@@ -198,7 +199,7 @@ function callGoogleDistanceByCoord() {
         }
     }).then(function (response) {
         console.log(response);
-        for (i in response.rows[0].elements) {
+        for (var i in response.rows[0].elements) {
             let meters = response.rows[0].elements[i].distance === undefined ? null : response.rows[0].elements[i].distance.value;
             let miles = meterToMile(meters);
             console.log(miles);
@@ -212,7 +213,7 @@ function callGoogleDistanceByCoord() {
 // a function that parses data from breweryObj and updates brewery-list div
 function updateBreweryList() {
     breweryList.empty();
-    for (i in breweryObj) {
+    for (var i in breweryObj) {
         let child = $('<div>');
         let card = $('<div class="uk-card uk-card-default uk-card-body">');
         let heading = $('<h4>').text('Brewery #' + (parseInt(i) + 1));
