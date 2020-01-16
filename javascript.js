@@ -1,3 +1,4 @@
+'use strict'
 // Open Brewery API const
 const openBreweryURL = 'https://api.openbrewerydb.org/breweries?';
 
@@ -17,30 +18,18 @@ let breweryList = $('#brewery-list');
 // Global variables
 let currentCoord;
 
-
-// will need to get user location at beginning -> update local variable current coord
-
-// user can search city name -> calls brewery api by city name -> updates local brewery obj -> make one google distance call with all the addresses -> update local brewery obj with distance data -> display result to user
-
-// user can click on locate me button -> browser gets user coord and store it in local var -> make one google distance call with all the addresses -> update local brewery obj with distance data -> 
-
-
-
 // html element event listeners
 userInput.on('keyup', switchIcon);
 userInput.keypress(enterPressed);
 searchButton.on('click', enterPressed);
 
 
-// init
 init();
 
 function init() {
     locateMe();
     console.log(currentCoord)
-}
-
-// updateBreweryList();
+};
 
 // a function that changes search-button icon to 'position' when there's nothing in input
 function switchIcon() {
@@ -81,7 +70,7 @@ function parseAddress(address) {
         address = address.substring(comma + 1).trim();
     };
     address = address.split(' ');
-    for (i in address) {
+    for (var i in address) {
         if ((address[i] === 2) && isNaN(parseInt(address[i]))) {
             state = address[i];
         } else if (isNaN(parseInt(address[i]))) {
@@ -175,7 +164,7 @@ function callGoogleDistanceByCoord() {
         return;
     };
     let destinations;
-    for (i in breweryObj) {
+    for (var i in breweryObj) {
         let breweryCoord = breweryObj[i].street + ',' + breweryObj[i].city + ',' + breweryObj[i].state;
         destinations += breweryCoord + '|'
     }
@@ -197,11 +186,9 @@ function callGoogleDistanceByCoord() {
             console.log("google distance by coord success");
         }
     }).then(function (response) {
-        console.log(response);
-        for (i in response.rows[0].elements) {
+        for (var i in response.rows[0].elements) {
             let meters = response.rows[0].elements[i].distance === undefined ? null : response.rows[0].elements[i].distance.value;
             let miles = meterToMile(meters);
-            console.log(miles);
             breweryObj[i].distance = miles;
         };
         console.log(breweryObj);
@@ -212,7 +199,7 @@ function callGoogleDistanceByCoord() {
 // a function that parses data from breweryObj and updates brewery-list div
 function updateBreweryList() {
     breweryList.empty();
-    for (i in breweryObj) {
+    for (var i in breweryObj) {
         let child = $('<div>');
         let card = $('<div class="uk-card uk-card-default uk-card-body">');
         let heading = $('<h4>').text('Brewery #' + (parseInt(i) + 1));
@@ -225,7 +212,6 @@ function updateBreweryList() {
         breweryList.append(child.append(card.append([heading, name, breweryType, address, distance])));
     };
 };
-
 
 // function converts meters (int) to miles 
 function meterToMile(meters) {
