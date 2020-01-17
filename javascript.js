@@ -5,6 +5,7 @@ const openBreweryURL = 'https://api.openbrewerydb.org/breweries?';
 // Google API const
 const googleDistanceMatrix = 'https://maps.googleapis.com/maps/api/distancematrix/json?';
 const googleGeocoding = 'https://maps.googleapis.com/maps/api/geocode/json?';
+const googleMap = 'https://maps.googleapis.com/maps/api/js?'
 const googleKey = 'AIzaSyCOVytxWpWIyqONX13vwZq83on9U8KmDW8';
 
 // CORS 
@@ -120,9 +121,19 @@ function initMap(lat, lng) {
     // The location = current coord
     let location = {lat: lat, lng: lng};
     // center the map on current location
-    var map = new google.maps.Map(
-        document.getElementById('map'), {zoom: 12, center: location});
-    var marker = new google.maps.Marker({position: location, map: map});
+    $.ajax({
+        url: corsAnywhere + googleMap,
+        data: {
+            key: googleKey
+        },
+        method: 'GET'
+    }).then(function (response) {
+        console.log('success')
+        // var map = new google.maps.Map(
+        //     document.getElementById('map'), {zoom: 12, center: location});
+        // var marker = new google.maps.Marker({position: location, map: map});
+    })
+
   };
 
 
