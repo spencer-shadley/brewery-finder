@@ -21,32 +21,14 @@
         </div>
     </nav>
 
-    <!--search field -->
-    <div class="brewery-search">
-        <div>
-            <form class="uk-search uk-search-default">
-                <a href="" class="uk-search-icon-flip" uk-search-icon></a>
-                <input class="uk-search-input" type="search" placeholder="Brewery Name" />
-            </form>
-        </div>
-    </div>
 
-    <!-- google map div -->
+    <!-- google map -->
     <div id="map"></div>
 
-    <!--search field (location)-->
-    <div class="location">
-        <div>
-            <form class="uk-search uk-search-default">
-                <a href="" class="uk-search-icon-flip" uk-search-icon></a>
-                <input class="uk-search-input" type="search" placeholder="ZIP Code, City, State" />
-            </form>
-        </div>
-    </div>
 
-    <!-- brewery list -->
+    <!-- main body container -->
     <div class="uk-container">
-
+        <!-- search input field -->
         <div class="uk-margin uk-flex uk-flex-center">
             <form class="uk-form-stacked">
                 <div class="uk-form-controls uk-inline">
@@ -57,73 +39,73 @@
                 <div class="uk-form-label">enter city, state zip code (e.g. "Seattle, WA 98103")</div>
             </form>
         </div>
-
-
-
-        <h1 class="uk-heading-small">TypeBrewery</h1>
-        <div id="brewery-type">
-            <div class="uk-margin uk-flex uk-flex-center">
-                <label><input class="uk-checkbox" type="checkbox" checked> Micro</label>
-                <label><input class="uk-checkbox" type="checkbox"> Regional</label>
-                <label><input class="uk-checkbox" type="checkbox" checked> Brewpub</label>
-                <label><input class="uk-checkbox" type="checkbox"> Large</label>
-                <label><input class="uk-checkbox" type="checkbox" checked> Planning</label>
-                <label><input class="uk-checkbox" type="checkbox"> Bar</label>
-                <label><input class="uk-checkbox" type="checkbox"> Contract</label>
-                <label><input class="uk-checkbox" type="checkbox"> Proprietor</label>
+        <!-- search brewery type check boxes -->
+        <div id="brewery-types">
+            <div class="uk-form-stacked">
+                <div class="uk-margin">
+                    <div class="uk-form-label">Brewery Types</div>
+                    <label><input class="uk-checkbox" type="checkbox"> Micro</label>
+                    <label><input class="uk-checkbox" type="checkbox"> Regional</label>
+                    <label><input class="uk-checkbox" type="checkbox"> Brewpub</label>
+                    <label><input class="uk-checkbox" type="checkbox"> Large</label>
+                    <label><input class="uk-checkbox" type="checkbox"> Planning</label>
+                    <label><input class="uk-checkbox" type="checkbox"> Bar</label>
+                    <label><input class="uk-checkbox" type="checkbox"> Contract</label>
+                    <label><input class="uk-checkbox" type="checkbox"> Proprietor</label>
+                </div>
             </div>
+        </div>
 
-
-
-            <h1 class="uk-heading-small">Dog Friendly / Food Truck</h1>
-            <div id="Pet/FoodTuck">
-                <div class="uk-margin uk-flex uk-flex-center">
-                    <label><input class="uk-checkbox" type="checkbox" checked> Dog-Friendly</label>
+        <!-- other search tag check boxes -->
+        <div id="search-tags">
+            <div class="uk-form-stacked">
+                <div class="uk-margin">
+                    <div class="uk-form-label">Other</div>
+                    <label><input class="uk-checkbox" type="checkbox"> Dog-Friendly</label>
                     <label><input class="uk-checkbox" type="checkbox"> No-Dogs</label>
-                    <label><input class="uk-checkbox" type="checkbox" checked> Food Truck</label>
+                    <label><input class="uk-checkbox" type="checkbox"> Food Truck</label>
                     <label><input class="uk-checkbox" type="checkbox"> Snacks</label>
-                    <label><input class="uk-checkbox" type="checkbox" checked> Tours</label>
-
+                    <label><input class="uk-checkbox" type="checkbox"> Tours</label>
                 </div>
+            </div>
+        </div>
 
-                <div class="uk-grid-medium uk-grid-match uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center uk-flex uk-flex-center"
-                    uk-grid id="brewery-list">
-                    <div class="uk-card uk-card-default uk-card-body">
-                        <h4 class="uk-text-center">Brewery #1</h4>
-                        <p class="uk-text-bold uk-text-center">Rock Wood Fired Pizza and Brewery - Lynnwood</p>
-                        <p>4010 196th St SW <br>
-                            Lynnwood, Washington 98036-6715
-                        </p>
-                    </div>
-                </div>
+        <!-- brewery list -->
+        <div class="uk-grid-medium uk-grid-match uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center uk-flex uk-flex-center"
+            uk-grid id="brewery-list">
+            <div class="uk-card uk-card-default uk-card-body">
+                <h4 class="uk-text-center">Brewery #1</h4>
+                <p class="uk-text-bold uk-text-center">Rock Wood Fired Pizza and Brewery - Lynnwood</p>
+                <p>4010 196th St SW <br>
+                    Lynnwood, Washington 98036-6715
+                </p>
+            </div>
+        </div>
 
-
-            </div> <!-- end of brewery-list -->
-
-
-
-
+    </div> <!-- end of brewery container -->
 
 
 
-            <!-- UIKit  -->
-            <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.6/dist/js/uikit.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.6/dist/js/uikit-icons.min.js"></script>
 
-            <!-- moment javascript -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 
-            <!-- JQuery -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- UIKit  -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.6/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.6/dist/js/uikit-icons.min.js"></script>
 
-            <!-- Main js -->
-            <script src="./test-objects.js"></script>
-            <script src="./states.js"></script>
-            <script src="./javascript.js"></script>
+    <!-- moment javascript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 
-            <!-- google map js -->
-            <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOVytxWpWIyqONX13vwZq83on9U8KmDW8&callback=initMap"></script>
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Main js -->
+    <script src="./test-objects.js"></script>
+    <script src="./states.js"></script>
+    <script src="./javascript.js"></script>
+
+    <!-- google map js -->
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOVytxWpWIyqONX13vwZq83on9U8KmDW8&callback=initMap"></script>
 </body>
 
 </html>
