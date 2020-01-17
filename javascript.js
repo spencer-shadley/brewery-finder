@@ -117,12 +117,11 @@ function locateMe() {
 };
 
 function initMap(lat, lng) {
-    // The location of Uluru
+    // The location = current coord
     let location = {lat: lat, lng: lng};
-    // The map, centered at Uluru
+    // center the map on current location
     var map = new google.maps.Map(
         document.getElementById('map'), {zoom: 4, center: location});
-    // The marker, positioned at Uluru
     var marker = new google.maps.Marker({position: location, map: map});
   };
 
