@@ -16,3 +16,13 @@
 .brewery-search, .location {
   padding: 20px;
 }
+
+#mapContainer {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.map {
+  max-width: 50%;
+}
