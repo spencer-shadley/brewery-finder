@@ -156,8 +156,12 @@ function callGoogleGeocodingByCoord(coordinate) {
             console.log("google geocoding success");
         }
     }).then(function (response) {
-        let city = response.results[0].address_components[2].long_name;
-        makeBreweryCall({ city: city });
+        console.log(response);
+        let city = response.results[0].address_components[3].long_name;
+        let postal = response.results[0].address_components[7].long_name;
+        console.log(city);
+        console.log(postal)
+        makeBreweryCall({ city: city});
     });
 };
 
@@ -173,8 +177,12 @@ function makeBreweryCall({ city, state, postal } = {}) {
             per_page: 20
         }
     }).then(function (response) {
-        breweryObj = response;
-        callGoogleDistanceByCoord();
+        if (response[0] === undefined) {
+            console.log("no return data on that city name")
+        } else {
+            breweryObj = response;
+            callGoogleDistanceByCoord();
+        };
     });
 };
 
