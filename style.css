@@ -1,0 +1,22 @@
+.container {
+  position: relative;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.uk-container {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.uk-form-label {
+  color: white;
+  text-align: center;
+}
