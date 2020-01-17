@@ -6,13 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Brewery Finder</title>
-    <!--Google Maps-->
-    <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
-    <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
-
-
     <!-- UI Kit CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.2.6/dist/css/uikit.min.css" />
+    <!-- custom css -->
+    <link rel="stylesheet" href="./mapContainer.css">
     <link rel="stylesheet" href="./style.css" />
 </head>
 
@@ -35,7 +32,7 @@
     </div>
 
     <!-- google map div -->
-    <div id="map" style="height: 400px; width: 100%;"></div>
+    <div id="map"></div>
 
     <!--search field (location)-->
     <div class="location">
@@ -111,8 +108,8 @@
     <script src="./javascript.js"></script>
 
     <!-- google map js -->
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOVytxWpWIyqONX13vwZq83on9U8KmDW8&callback=initMap"></script>
+    <!-- <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOVytxWpWIyqONX13vwZq83on9U8KmDW8&callback=initMap"></script> -->
 </body>
 
 </html>
