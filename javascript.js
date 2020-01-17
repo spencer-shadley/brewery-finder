@@ -121,7 +121,7 @@ function initMap(lat, lng) {
     let location = {lat: lat, lng: lng};
     // center the map on current location
     var map = new google.maps.Map(
-        document.getElementById('map'), {zoom: 4, center: location});
+        document.getElementById('map'), {zoom: 12, center: location});
     var marker = new google.maps.Marker({position: location, map: map});
   };
 
@@ -176,7 +176,7 @@ function callGoogleDistanceByCoord() {
     let destinations;
     for (var i in breweryObj) {
         let breweryCoord = breweryObj[i].street + ',' + breweryObj[i].city + ',' + breweryObj[i].state;
-        destinations += breweryCoord + '|'
+        destinations += breweryCoord + '|';
     }
     $.ajax({
         url: corsAnywhere + googleDistanceMatrix,
