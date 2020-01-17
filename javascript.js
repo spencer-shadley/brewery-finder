@@ -1,4 +1,4 @@
-'use strict'
+// 'use strict'
 // Open Brewery API const
 const openBreweryURL = 'https://api.openbrewerydb.org/breweries?';
 
@@ -28,7 +28,6 @@ init();
 
 function init() {
     locateMe();
-    console.log(currentCoord)
 };
 
 // a function that changes search-button icon to 'position' when there's nothing in input
@@ -104,6 +103,7 @@ function locateMe() {
     function success(position) {
         let latitude = position.coords.latitude;
         let longitude = position.coords.longitude;
+        initMap(latitude, longitude);
         currentCoord = latitude + ',' + longitude;
         console.log('Your coordinate is: ' + currentCoord);
         callGoogleGeocodingByCoord(currentCoord);
@@ -115,6 +115,17 @@ function locateMe() {
         breweryList.append(errorMessage);
     };
 };
+
+function initMap(lat, lng) {
+    // The location of Uluru
+    let location = {lat: lat, lng: lng};
+    // The map, centered at Uluru
+    var map = new google.maps.Map(
+        document.getElementById('map'), {zoom: 4, center: location});
+    // The marker, positioned at Uluru
+    var marker = new google.maps.Marker({position: location, map: map});
+  };
+
 
 // google Geocoding call to get current city name and then search for brewery with that city name
 function callGoogleGeocodingByCoord(coordinate) {
@@ -223,5 +234,3 @@ function meterToMile(meters) {
 };
 
 
-
-// Richard TEST 
