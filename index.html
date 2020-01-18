@@ -29,32 +29,37 @@
     <!-- main body container -->
     <div class="uk-container">
         <!-- search input field -->
-        <div class="uk-margin uk-flex uk-flex-center">
+        <div class="uk-flex uk-flex-center">
             <form class="uk-form-stacked">
-                <div class="uk-form-controls uk-inline">
-                    <input class="uk-input uk-form-width-large" id="user-input" type="search"
+                <div class="uk-margin uk-form-controls uk-inline">
+                    <input class="uk-input uk-form-width-large uk-form-large" id="user-input" type="search"
                         placeholder="where to drink?">
                     <a class="uk-form-icon uk-form-icon-flip" id="search-button" href="" uk-icon="icon: location"></a>
+                    <div class="uk-form-label">enter city, state zip code (e.g. "Seattle, WA 98103")</div>
                 </div>
-                <div class="uk-form-label">enter city, state zip code (e.g. "Seattle, WA 98103")</div>
+                <!-- search brewery type check boxes -->
+                <div class="uk-flex uk-flex-center">
+                    <div uk-form-custom="target: > * > span:first-child">
+                        <select id="brewery-types">
+                            <option value="">Brewery Type</option>
+                            <option value="micro">Micro</option>
+                            <option value="regional">Regional</option>
+                            <option value="brewpub">Brew Pub</option>
+                            <option value="large">Large</option>
+                            <option value="planning">Planning</option>
+                            <option value="bar">Bar</option>
+                            <option value="contract">Contract</option>
+                            <option value="proprietor">Proprietor</option>
+                        </select>
+                        <button class="uk-button uk-button-default" type="button" tabindex="-1">
+                            <span></span>
+                            <span uk-icon="icon: chevron-down"></span>
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>
-        <!-- search brewery type check boxes -->
-        <div id="brewery-types">
-            <div class="uk-form-stacked">
-                <div class="uk-margin">
-                    <div class="uk-form-label">Brewery Types</div>
-                    <label><input class="uk-checkbox" type="checkbox"> Micro</label>
-                    <label><input class="uk-checkbox" type="checkbox"> Regional</label>
-                    <label><input class="uk-checkbox" type="checkbox"> Brewpub</label>
-                    <label><input class="uk-checkbox" type="checkbox"> Large</label>
-                    <label><input class="uk-checkbox" type="checkbox"> Planning</label>
-                    <label><input class="uk-checkbox" type="checkbox"> Bar</label>
-                    <label><input class="uk-checkbox" type="checkbox"> Contract</label>
-                    <label><input class="uk-checkbox" type="checkbox"> Proprietor</label>
-                </div>
-            </div>
-        </div>
+
 
         <!-- other search tag check boxes -->
         <div id="search-tags">
@@ -91,9 +96,6 @@
     <!-- UIKit  -->
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.6/dist/js/uikit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.6/dist/js/uikit-icons.min.js"></script>
-
-    <!-- moment javascript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 
     <!-- JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

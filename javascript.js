@@ -15,17 +15,21 @@ const corsAnywhere = 'https://cors-anywhere.herokuapp.com/';
 let userInput = $('#user-input');
 let searchButton = $('#search-button');
 let breweryList = $('#brewery-list');
+let breweryType = $('#brewery-types');
 
 // Global variables
 let currentCoord;
+let selectedBreweryType;
 
 // html element event listeners
 userInput.on('keyup', switchIcon);
 userInput.keypress(enterPressed);
 searchButton.on('click', enterPressed);
+breweryType.on('change', updateSelectedBreweryType);
 
 
-init();
+
+// init();
 
 function init() {
     locateMe();
@@ -117,6 +121,12 @@ function locateMe() {
     };
 };
 
+// a function that updates the selectedBreweryType global variable
+function updateSelectedBreweryType() {
+    selectedBreweryType = $(this).val();
+    console.log(selectedBreweryType);
+};
+
 function initMap(lat, lng) {
     // The location = current coord
     let location = {lat: lat, lng: lng};
@@ -172,7 +182,7 @@ function makeBreweryCall({ city, state, postal } = {}) {
         data: {
             by_city: city,
             by_state: state,
-            by_type: '',
+            by_type: selectedBreweryType,
             by_postal: postal,
             per_page: 20
         }
