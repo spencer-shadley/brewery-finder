@@ -1,6 +1,6 @@
 # Brewery Finder
 
-application link:
+application link: https://phaggio.github.io/brewery-finder/
 
 ## Overview
 This is an application where user can search available breweries near by or by city.
