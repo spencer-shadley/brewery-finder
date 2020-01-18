@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .uk-form-label {
   text-align: center;
 }
@@ -6,3 +7,27 @@
   position: fixed;
   justify-content: center;
 }
+=======
+.container {
+  position: relative;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.uk-container {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.uk-form-label {
+  color: white;
+  text-align: center;
+}
+>>>>>>> fd0155436cda43b6b37a7eca5d8b42dae8a8f61d
