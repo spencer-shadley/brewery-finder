@@ -26,10 +26,10 @@ let resultPerPage = 50;
 userInput.on('keyup', switchIcon);
 userInput.keypress(enterPressed);
 searchButton.on('click', enterPressed);
-breweryType.on('change', updateSelectedBreweryType);
+breweryType.on('click', updateSelectedBreweryType);
 
 
-// init();
+init();
 
 function init() {
     locateMe();
@@ -123,7 +123,7 @@ function locateMe() {
 
 // a function that updates the selectedBreweryType global variable
 function updateSelectedBreweryType() {
-    selectedBreweryType = $(this).val();
+    selectedBreweryType = $(this);
     console.log(selectedBreweryType);
 };
 
