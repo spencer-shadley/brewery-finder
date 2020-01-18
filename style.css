@@ -1,18 +1,33 @@
-.header {
-  height: 90px;
-  background: goldenrod;
-  border-top: 15px solid white;
-  border-bottom: 2px solid gainsboro;
-}
-
-#header-text {
-  margin: 15px;
-  color: white;
-  font-size: 40px;
-  font-weight: bolder;
+<<<<<<< HEAD
+.uk-form-label {
   text-align: center;
 }
 
-.brewery-search, .location {
-  padding: 20px;
+#search-bar {
+  position: fixed;
+  justify-content: center;
 }
+=======
+.container {
+  position: relative;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.uk-container {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.uk-form-label {
+  color: white;
+  text-align: center;
+}
+>>>>>>> fd0155436cda43b6b37a7eca5d8b42dae8a8f61d
