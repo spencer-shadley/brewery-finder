@@ -1,18 +1,8 @@
-.header {
-  height: 90px;
-  background: goldenrod;
-  border-top: 15px solid white;
-  border-bottom: 2px solid gainsboro;
-}
-
-#header-text {
-  margin: 15px;
-  color: white;
-  font-size: 40px;
-  font-weight: bolder;
+.uk-form-label {
   text-align: center;
 }
 
-.brewery-search, .location {
-  padding: 20px;
+#search-bar {
+  position: fixed;
+  justify-content: center;
 }
