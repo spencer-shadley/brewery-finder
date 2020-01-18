@@ -26,7 +26,10 @@ User may search for breweries by:
 
 ## API's Used
 
-- Google Maps API
+- Google Geocoding
+
+- Google Distance Matrix
+
 - Open Brewery DB (openbrewerydb.org)
 
 ## CSS Framework
