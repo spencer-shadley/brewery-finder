@@ -2,6 +2,10 @@
 
 application link: https://phaggio.github.io/brewery-finder/
 
+## User Story
+
+AS a beer enthusiast I WANT TO be able to find breweries in my vicinity SO THAT I can enjoy new craft beers and experience a new brewery.
+
 ## Overview
 
 This is an application where user can search available breweries near by or by city.
