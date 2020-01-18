@@ -20,13 +20,13 @@ let breweryType = $('#brewery-types');
 // Global variables
 let currentCoord;
 let selectedBreweryType;
+let resultPerPage = 50;
 
 // html element event listeners
 userInput.on('keyup', switchIcon);
 userInput.keypress(enterPressed);
 searchButton.on('click', enterPressed);
 breweryType.on('change', updateSelectedBreweryType);
-
 
 
 // init();
@@ -184,7 +184,7 @@ function makeBreweryCall({ city, state, postal } = {}) {
             by_state: state,
             by_type: selectedBreweryType,
             by_postal: postal,
-            per_page: 20
+            per_page: resultPerPage
         }
     }).then(function (response) {
         if (response[0] === undefined) {
