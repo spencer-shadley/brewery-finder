@@ -1,6 +1,6 @@
 # Brewery Finder
 
-application link: https://phaggio.github.io/brewery-finder/
+application link:
 
 ## User Story
 
