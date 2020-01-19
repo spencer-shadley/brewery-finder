@@ -16,6 +16,7 @@ let userInput = $('#user-input');
 let searchButton = $('#search-button');
 let breweryList = $('#brewery-list');
 let breweryType = $('#brewery-types');
+let amenities = $('#amenities');
 
 // Global variables
 let currentCoord;
@@ -30,6 +31,11 @@ breweryType.on('change', updateSelectedBreweryType);
 
 
 // init();
+
+amenities.on('click', function() {
+    console.log($(this).val());
+})
+
 
 function init() {
     locateMe();

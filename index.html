@@ -30,44 +30,48 @@
     <div class="uk-container">
         <!-- search input field -->
         <div class="uk-flex uk-flex-column uk-flex-middle">
-            <form class="uk-form-stacked">
-                <div class="uk-margin uk-form-controls uk-inline">
-                    <input class="uk-input uk-form-width-large uk-form-large" id="user-input" type="search"
-                        placeholder="where to drink?">
+            <div class="uk-margin uk-form-controls uk-inline">
+                <form class="uk-search uk-search-default uk-width-1-1">
+                    <input class="uk-input uk-form-width-large" id="user-input" type="search" placeholder="where to drink?">
                     <a class="uk-form-icon uk-form-icon-flip" id="search-button" href="" uk-icon="icon: location"></a>
-                    <div class="uk-form-label">enter city, state zip code (e.g. "Seattle, WA 98103")</div>
+                </form>
+                <div class="uk-form-label">enter city, state zip code (e.g. "Seattle, WA 98103")</div>
+            </div>
+            <!-- search brewery type check boxes -->
+            <div class="uk-margin">
+                <div uk-form-custom="target: > * > span:first-child">
+                    <select id="brewery-types">
+                        <option value="">Brewery Type</option>
+                        <option value="micro">Micro</option>
+                        <option value="regional">Regional</option>
+                        <option value="brewpub">Brew Pub</option>
+                        <option value="large">Large</option>
+                        <option value="planning">Planning</option>
+                        <option value="bar">Bar</option>
+                        <option value="contract">Contract</option>
+                        <option value="proprietor">Proprietor</option>
+                    </select>
+                    <button class="uk-button uk-button-default" type="button" tabindex="-1">
+                        <span></span>
+                        <span uk-icon="icon: chevron-down"></span>
+                    </button>
                 </div>
-                <!-- search brewery type check boxes -->
-                <div class="uk-margin">
-                    <div uk-form-custom="target: > * > span:first-child">
-                        <select id="brewery-types">
-                            <option value="">Brewery Type</option>
-                            <option value="micro">Micro</option>
-                            <option value="regional">Regional</option>
-                            <option value="brewpub">Brew Pub</option>
-                            <option value="large">Large</option>
-                            <option value="planning">Planning</option>
-                            <option value="bar">Bar</option>
-                            <option value="contract">Contract</option>
-                            <option value="proprietor">Proprietor</option>
-                        </select>
-                        <button class="uk-button uk-button-default" type="button" tabindex="-1">
-                            <span></span>
-                            <span uk-icon="icon: chevron-down"></span>
-                        </button>
-                    </div>
-                </div>
-            </form>
+            </div>
             <form class="uk-form-horizontal">
                 <!-- search include amenities -->
                 <div class="uk-margin">
                     <div class="uk-form-label">Amenities:</div>
-                    <div class="uk-form-controls uk-form-controls-text">
-                        <label><input class="uk-checkbox" type="checkbox"> Dog-Friendly</label>
-                        <label><input class="uk-checkbox" type="checkbox"> No-Dogs</label>
-                        <label><input class="uk-checkbox" type="checkbox"> Food Truck</label>
-                        <label><input class="uk-checkbox" type="checkbox"> Snacks</label>
-                        <label><input class="uk-checkbox" type="checkbox"> Tours</label>
+                    <div class="uk-form-controls uk-form-controls-text" id="amenities">
+                        <label class="uk-padding-small"><input class="uk-checkbox" type="checkbox"
+                                value="dog-friendly">Dog-Friendly</label>
+                        <label class="uk-padding-small"><input class="uk-checkbox" type="checkbox"
+                                value="patio">Patio</label>
+                        <label class="uk-padding-small"><input class="uk-checkbox" type="checkbox"
+                                value="food-service">Food Service</label>
+                        <label class="uk-padding-small"><input class="uk-checkbox" type="checkbox"
+                                value="food-truck">Food Truck </label>
+                        <label class="uk-padding-small"><input class="uk-checkbox" type="checkbox"
+                                value="tours">Tours</label>
                     </div>
                 </div>
             </form>
